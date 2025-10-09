@@ -42,8 +42,6 @@
   jdk
   jetbrains.idea-community-src
   
-  hackrf
-  cubicsdr 
 
   fuzzel
   mako
