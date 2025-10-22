@@ -10,21 +10,22 @@
   nnn
 
   zip
+  unzip
   gzip
-  
+  kdePackages.dolphin 
   nmap
 
   cowsay
   btop
- 
-  swww 
+  
+  amberol 
+  vscode
   emacs
   spotify
   vim
   discord
   thunderbird
   ghostty
-  vscodium
   vlc 
   wget
   racket
@@ -41,8 +42,11 @@
   gnumake
   jdk
   jetbrains.idea-community-src
-  
+  radeontop
 
+  nm-applet
+  swww
+  swaylock
   fuzzel
   mako
   alacritty

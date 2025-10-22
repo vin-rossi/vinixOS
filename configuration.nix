@@ -12,9 +12,27 @@
 
 nix.settings.experimental-features = ["nix-command" "flakes" ] ;
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
+/*  # Bootloader.
+  boot.loader.grub.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  */
+
+  boot.loader = {
+  efi = {
+    canTouchEfiVariables = false;
+    efiSysMountPoint = "/boot";
+  };
+  grub = {
+     enable = true;
+     efiSupport = true;
+     efiInstallAsRemovable = true;
+     devices = [ "nodev" ];
+     useOSProber = true;
+  };
+};
+
+  time.hardwareClockInLocalTime = true;
+
 
   networking.hostName = "vinixOS"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -25,6 +43,46 @@ nix.settings.experimental-features = ["nix-command" "flakes" ] ;
 
   # Enable networking
   networking.networkmanager.enable = true;
+  
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+    settings = {
+      General = {
+      	Experimental = true;
+       };
+	Policy = {
+	  AutoEnable = true;
+	};
+       };
+  };
+
+  services.blueman.enable = true;    
+  
+
+  #rebind caps-lock to esc
+  
+
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      # The name is just the name of the configuration file, it does not really matter
+      default = {
+        ids = [ "*" ]; # what goes into the [id] section, here we select all keyboards
+        # Everything but the ID section:
+        settings = {
+          # The main layer, if you choose to declare it in Nix
+          main = {
+            capslock = "esc";
+          };
+          otherlayer = {};
+        };
+      extraConfig = ''
+        # put here any extra-config, e.g. you can copy/paste here directly a configuration, just remove the ids part
+      '';
+    };
+  };
+};
 
   # Set your time zone.
   time.timeZone = "America/New_York";
@@ -44,12 +102,16 @@ nix.settings.experimental-features = ["nix-command" "flakes" ] ;
     LC_TIME = "en_US.UTF-8";
   };
 
+
   services.xserver = {
     enable = true;
     displayManager.gdm = {
       enable = true;
       wayland = true;
     };
+  };
+
+/*
     desktopManager.gnome = {
       enable = true;
       extraGSettingsOverridePackages = [ pkgs.mutter ];
@@ -92,7 +154,11 @@ pkgs.file-roller
 pkgs.gnome-font-viewer
 pkgs.gnome-console
 # GNOME Extensions will be next :)
-]; 
+];
+*/ 
+
+
+  services.fwupd.enable = true;
 
   # Configure keymap in X11
   services.xserver.xkb = {
