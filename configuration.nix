@@ -11,7 +11,7 @@
     ];
 
 nix.settings.experimental-features = ["nix-command" "flakes" ] ;
-
+nix.package = pkgs.lixPackageSets.stable.lix;
 /*  # Bootloader.
   boot.loader.grub.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -73,7 +73,7 @@ nix.settings.experimental-features = ["nix-command" "flakes" ] ;
         settings = {
           # The main layer, if you choose to declare it in Nix
           main = {
-            capslock = "esc";
+            capslock = "overload(control, esc)";
           };
           otherlayer = {};
         };
@@ -111,52 +111,6 @@ nix.settings.experimental-features = ["nix-command" "flakes" ] ;
     };
   };
 
-/*
-    desktopManager.gnome = {
-      enable = true;
-      extraGSettingsOverridePackages = [ pkgs.mutter ];
-      extraGSettingsOverrides = ''
-        [org.gnome.mutter]
-        experimental-features=['scale-monitor-framebuffer']
-      '';
-    };
-
-  };
-
-
-environment.gnome.excludePackages = with pkgs.gnome; [
-pkgs.baobab
-pkgs.loupe
-pkgs.gnome-clocks
-pkgs.epiphany
-pkgs.simple-scan
-pkgs.totem
-pkgs.yelp
-pkgs.evince
-pkgs.geary
-pkgs.gnome-calculator
-pkgs.gnome-contacts
-pkgs.gnome-logs
-pkgs.gnome-maps
-pkgs.gnome-music
-pkgs.gnome-screenshot
-pkgs.gnome-system-monitor
-pkgs.gnome-tour
-pkgs.gnome-connections
-pkgs.gnome-software
-pkgs.gnome-weather
-pkgs.decibels
-pkgs.snapshot
-pkgs.gnome-characters
-pkgs.seahorse
-pkgs.gnome-calendar
-pkgs.file-roller
-pkgs.gnome-font-viewer
-pkgs.gnome-console
-# GNOME Extensions will be next :)
-];
-*/ 
-
 
   services.fwupd.enable = true;
 
@@ -164,6 +118,7 @@ pkgs.gnome-console
   services.xserver.xkb = {
     layout = "us";
     variant = "";
+    options = "altwin:swap_alt_win";
   };
 
   # Enable CUPS to print documents.
@@ -210,13 +165,18 @@ pkgs.gnome-console
   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
 };
 
-
+fonts.packages = with pkgs; [
+  nerd-fonts.open-dyslexic
+ ];
 
 security.polkit.enable = true;
 services.gnome.gnome-keyring.enable = true;
 
 
-
+programs.virt-manager.enable = true;
+users.groups.libvirtd.members = ["rhea"];
+virtualisation.libvirtd.enable = true;
+virtualisation.spiceUSBRedirection.enable = true;
 
 programs.waybar.enable = true;
  # List packages installed in system profile. To search, run:
@@ -225,7 +185,9 @@ programs.waybar.enable = true;
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     alacritty
+    spice-gtk
   ];
+
 
 
   # Some programs need SUID wrappers, can be configured further or are
