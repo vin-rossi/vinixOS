@@ -31,9 +31,14 @@
       url = "github:misterio77/nix-colors";
     };
 
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+     };
+
   };
 
-  outputs = { self, niri, nixpkgs, nixos-hardware, nix-colors,  home-manager, flake-utils, sops-nix  }@inputs: {
+  outputs = { self, niri, nixpkgs, nixos-hardware, nix-colors,  home-manager, flake-utils, sops-nix, nixvim}@inputs: {
     # The host with the hostname `my-nixos` will use this configuration
     nixosConfigurations.vinixOS = nixpkgs.lib.nixosSystem {
       modules = [
@@ -42,6 +47,9 @@
 	{
 	  home-manager.useGlobalPkgs = true;
 	  home-manager.useUserPackages = true;
+	  home-manager.sharedModules = [
+	    nixvim.homeManagerModules.nixvim
+	  ];
 	  home-manager.users.rhea =  import  ./home.nix;
        }
       ];

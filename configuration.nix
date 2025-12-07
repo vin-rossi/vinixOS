@@ -27,7 +27,7 @@ nix.package = pkgs.lixPackageSets.stable.lix;
      efiSupport = true;
      efiInstallAsRemovable = true;
      devices = [ "nodev" ];
-     useOSProber = true;
+     #useOSProber = true;
   };
 };
 
@@ -163,10 +163,13 @@ nix.package = pkgs.lixPackageSets.stable.lix;
   enable = true;
   remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-};
+}; 
+
 
 fonts.packages = with pkgs; [
+  nerd-fonts.symbols-only
   nerd-fonts.open-dyslexic
+  lexend
  ];
 
 security.polkit.enable = true;

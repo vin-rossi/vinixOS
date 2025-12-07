@@ -1,4 +1,5 @@
-{config, pkgs, ...}:
+{config, pkgs, inputs, nixvim, ...}:
+
 
 {
   home.username="rhea";
@@ -6,6 +7,11 @@
 
   home.packages = with pkgs; [
 
+  kew
+
+  gparted
+  hackrf
+  sdrpp
   neofetch
   nnn
   
@@ -21,8 +27,7 @@
   btop
   
   amberol 
-  vscodium
-  emacs
+  vscode
   spotify
   vimb
   discord
@@ -47,11 +52,9 @@
   radeontop
 
   networkmanagerapplet
-  swww
-  swaylock
   fuzzel
   mako
-  alacritty
+  alacritty-graphics
   xwayland-satellite
    
   syncthing
@@ -60,11 +63,32 @@
   
   nomacs
 
-  texlive.combined.scheme-tetex
   brightnessctl
+
+  jetbrains-toolbox
 ];
 
-  programs.neovim = {
+  services.swww.enable = true;
+
+  programs.swaylock.enable = true;
+  programs.swaylock.settings = { color = "d10069"; };
+
+  programs.rofi = {
+    enable = true;
+    font = "OpenDyslexic Nerd Font";
+    modes = [
+    "ssh"
+    "filebrowser"
+    "recursivebrowser"
+    "keys"
+    "combi"
+    "window"
+    "run"
+    "drun"
+    ];
+  };
+
+  /* programs.neovim = {
     enable = true;
     viAlias = true;
     vimAlias = true;
@@ -93,9 +117,61 @@
         vimtex
 	nerdtree
 	semantic-highlight-vim
+	
 
       ];
-   };
+   }; */
+  
+  programs.nixvim = {
+    enable = true;
+    defaultEditor = true;
+    viAlias = true;
+    vimAlias = true;
+    colorschemes.catppuccin.enable = true;
+    plugins.lualine.enable = true;
+    plugins.vimtex = {
+      enable = true;
+      texlivePackage = pkgs.texliveFull;
+      settings = {
+	toc_config = {
+	  split_pos = "vert topleft";
+	  split_width = 40;
+	};
+	view_method = "zathura";
+	};
+     };
+    extraPlugins = with pkgs.vimPlugins; [
+      nerdtree
+      semantic-highlight-vim
+      ];
+    opts = {
+      number = true;
+      relativenumber = true;
+
+      shiftwidth = 2;
+      tabstop = 2;
+      expandtab = true;
+      smarttab = true;
+      history = 1000;
+      spell = true;
+    };
+
+    keymaps = [
+      {
+        mode = "n";
+	key = "<C-s>";
+	options.silent = true;
+	action = ":SemanticHighlightToggle<CR>";
+       }
+      {
+        mode = "n";
+	key = "<C-S-d>";
+	options.silent = true;
+	action = ":NERDTree<CR>";
+       }
+      ];
+     };
+      
   programs.git = {
 	enable = true;
 	userName = "Rhea-Morningstar";
@@ -105,6 +181,8 @@
 	  safe.directory = "/etc/nixos";
     };
   };
+
+
  
   services.swayidle =
   let
