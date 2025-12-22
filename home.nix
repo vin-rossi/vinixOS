@@ -24,7 +24,7 @@
   nmap
 
   cowsay
-  btop
+  
   
   amberol 
   vscode
@@ -68,6 +68,10 @@
   jetbrains-toolbox
 ];
 
+  programs.eww = {
+    enable = true;
+    #configDir = ./vinixOS-dots/eww-widgets;
+    };
   services.swww.enable = true;
 
   programs.swaylock.enable = true;

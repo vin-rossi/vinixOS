@@ -3,8 +3,9 @@
  description = " vinix flake";
  
  inputs = {
-    # officially cool enough for unstable
     nixpkgs.url = "github:NixOS/nixpkgs";
+    
+
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -15,11 +16,11 @@
     };
 
     niri = {
-      url = "github:sodiboo/niri-flake"; # TODO stop the madness
+      url = "github:sodiboo/niri-flake"; 
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nixos-hardware.url = "github:nixos/nixos-hardware";
+    nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
 
     sops-nix = {
@@ -44,6 +45,7 @@
       modules = [
         ./configuration.nix
         home-manager.nixosModules.home-manager
+        nixos-hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
 	{
 	  home-manager.useGlobalPkgs = true;
 	  home-manager.useUserPackages = true;

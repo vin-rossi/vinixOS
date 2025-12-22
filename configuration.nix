@@ -22,6 +22,8 @@ nix.package = pkgs.lixPackageSets.stable.lix;
     canTouchEfiVariables = false;
     efiSysMountPoint = "/boot";
   };
+  systemd-boot.enable = true;
+  /*
   grub = {
      enable = true;
      efiSupport = true;
@@ -29,6 +31,7 @@ nix.package = pkgs.lixPackageSets.stable.lix;
      devices = [ "nodev" ];
      #useOSProber = true;
   };
+  */
 };
 
   time.hardwareClockInLocalTime = true;
