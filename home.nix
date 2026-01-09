@@ -7,8 +7,17 @@
 
   home.packages = with pkgs; [
 
+  #this is so unorganized but ill atttempt to fix that over time :3
+
+  #Langs
+  go
+  jdk
+  racket
+
   kew
 
+  btop
+  cmake
   gparted
   hackrf
   sdrpp
@@ -35,7 +44,6 @@
   ghostty
   vlc 
   wget
-  racket
   darktable
   libreoffice-qt
   git
@@ -47,7 +55,6 @@
   python3
   valgrind
   gnumake
-  jdk
   jetbrains.idea-community-src
   radeontop
 

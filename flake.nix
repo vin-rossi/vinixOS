@@ -3,7 +3,7 @@
  description = " vinix flake";
  
  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/release-25.11";
     
 
 

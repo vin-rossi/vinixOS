@@ -46,7 +46,7 @@ nix.package = pkgs.lixPackageSets.stable.lix;
 
   # Enable networking
   networking.networkmanager.enable = true;
-  
+  programs.waybar.enable = true; 
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -184,7 +184,6 @@ users.groups.libvirtd.members = ["rhea"];
 virtualisation.libvirtd.enable = true;
 virtualisation.spiceUSBRedirection.enable = true;
 
-programs.waybar.enable = true;
  # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
