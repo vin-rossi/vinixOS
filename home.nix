@@ -13,6 +13,7 @@
   go
   jdk
   racket
+  ruby
 
   kew
 
@@ -32,6 +33,7 @@
   kdePackages.dolphin 
   nmap
 
+  hyfetch
   cowsay
   
   
@@ -99,39 +101,7 @@
     ];
   };
 
-  /* programs.neovim = {
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
-    coc.enable = true;
-    extraConfig = "
-      set number
-      set tabstop=4
-      set shiftwidth=4
-      set expandtab
-      set smarttab
-      set ignorecase
-      set incsearch
-      set hlsearch
-      set smartcase
-      set linebreak
-      syntax enable
-      set wrap
-      set title
-      set background=dark
-      set history=1000
-      set spell spelllang=en_us
-      nnoremap <silent><C-s> :SemanticHighlightToggle<cr>
-      nnoremap <silent><C-S-d> :NERDTree<cr>
-      ";
-    plugins = with pkgs.vimPlugins; [
-        vimtex
-	nerdtree
-	semantic-highlight-vim
-	
 
-      ];
-   }; */
   
   programs.nixvim = {
     enable = true;
@@ -180,6 +150,18 @@
 	options.silent = true;
 	action = ":NERDTree<CR>";
        }
+       {
+        mode = "";
+        key = "j";
+        options.silent = true;
+        action = "gj";
+        }
+        {
+        mode = "";
+        key = "k";
+        options.silent = true;
+        action = "gk";
+        }
       ];
      };
       

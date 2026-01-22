@@ -168,7 +168,15 @@ nix.package = pkgs.lixPackageSets.stable.lix;
   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
 }; 
 
-
+hardware.graphics= {
+  enable = true;
+  enable32Bit = true;
+  extraPackages = with pkgs; [
+    vulkan-loader
+    vulkan-validation-layers
+    vulkan-extension-layer
+  ];
+};
 fonts.packages = with pkgs; [
   nerd-fonts.symbols-only
   nerd-fonts.open-dyslexic
@@ -207,6 +215,20 @@ virtualisation.spiceUSBRedirection.enable = true;
 
   # Enable the OpenSSH daemon.
    services.openssh.enable = true;
+   programs.ssh = {
+      extraConfig = "
+      Host login
+        Hostname login.khoury.northeastern.edu
+        User vinrossi
+        IdentityFile ~/.ssh/khourylogin
+
+      Host warhead
+        Hostname warhead.khoury.northeastern.edu
+        port 10001
+        User hacker40
+        IdentityFile ~/.ssh/khourylogin
+        ProxyJump login";
+      };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
