@@ -187,6 +187,14 @@ security.polkit.enable = true;
 services.gnome.gnome-keyring.enable = true;
 
 
+environment.sessionVariables = {
+  _JAVA_AWT_WM_NONREPARENTING = "1";
+  TERM = "xterm-256color";
+};
+users.defaultUserShell = pkgs.zsh;
+programs.zsh.enable = true;
+programs.appimage.enable = true;
+programs.appimage.binfmt = true;
 programs.virt-manager.enable = true;
 users.groups.libvirtd.members = ["rhea"];
 virtualisation.libvirtd.enable = true;

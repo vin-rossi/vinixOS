@@ -15,7 +15,9 @@
   racket
   ruby
 
+
   kew
+  zoom
 
   btop
   cmake
@@ -36,6 +38,9 @@
   hyfetch
   cowsay
   
+
+  binaryninja-free
+  ghidra-bin 
   
   amberol 
   vscode
@@ -43,13 +48,11 @@
   vimb
   discord
   thunderbird
-  ghostty
   vlc 
   wget
   darktable
   libreoffice-qt
   git
-  ghidra-bin 
   gdb
   gcc
   libgcc
@@ -102,7 +105,17 @@
   };
 
 
-  
+
+  programs.ghostty = {
+    enable = true;
+    enableZshIntegration = true;
+
+    settings = {
+      background = "000000";
+      background-opacity = "0.5";
+      gtk-single-instance = "false";
+    };
+  };
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
@@ -175,6 +188,23 @@
     };
   };
 
+programs.zsh = {
+  enable = true;
+  enableCompletion = false;
+  autosuggestion.enable = true;
+  syntaxHighlighting.enable = true;
+  shellAliases = {
+    ll = "ls -l";
+    update = "sudo nixos-rebuild switch --flake ~/vinixOS#vinixOS";
+  };
+  history.size = 10000;
+  history.ignoreAllDups = true;
+  oh-my-zsh = {
+    enable = true;
+    plugins = ["git" "ruby" "vi-mode" ];
+    theme = "bira";
+  };
+};
 
  
   services.swayidle =
