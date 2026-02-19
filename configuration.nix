@@ -150,7 +150,7 @@ nix.package = pkgs.lixPackageSets.stable.lix;
   users.users.rhea = {
     isNormalUser = true;
     description = "rhea";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "dialout" ];
     packages = with pkgs; [
     #  thunderbird
     ];

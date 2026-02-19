@@ -16,6 +16,8 @@
   ruby
 
 
+  proxmark3
+
   kew
   zoom
 
@@ -41,6 +43,7 @@
 
   binaryninja-free
   ghidra-bin 
+  burpsuite
   
   amberol 
   vscode
@@ -111,6 +114,7 @@
     enableZshIntegration = true;
 
     settings = {
+      env = "TERM=xterm-256color";
       background = "000000";
       background-opacity = "0.5";
       gtk-single-instance = "false";
