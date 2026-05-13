@@ -3,7 +3,7 @@
  description = " vinix flake";
  
  inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/master";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     
 
 
@@ -19,6 +19,16 @@
       url = "github:sodiboo/niri-flake"; 
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nix-alien = {
+      url = "github:thiagokokada/nix-alien";
+    };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia-shell";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
 
     nixos-hardware.url = "github:NixOS/nixos-hardware/master";
 
@@ -39,9 +49,9 @@
 
   };
 
-  outputs = { self, niri, nixpkgs, nixos-hardware, nix-colors,  home-manager, flake-utils, sops-nix, nixvim}@inputs: {
-    # The host with the hostname `my-nixos` will use this configuration
-    nixosConfigurations.vinixOS = nixpkgs.lib.nixosSystem {
+  outputs = { self, niri, nixpkgs, nixos-hardware, nix-colors,  home-manager, flake-utils, sops-nix, nixvim, noctalia, nix-alien, ...}@inputs: {
+      nixosConfigurations.vinixOS = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs; };
       modules = [
         ./configuration.nix
         home-manager.nixosModules.home-manager
@@ -49,8 +59,10 @@
 	{
 	  home-manager.useGlobalPkgs = true;
 	  home-manager.useUserPackages = true;
+    home-manager.extraSpecialArgs = { inherit inputs; };
 	  home-manager.sharedModules = [
 	    nixvim.homeManagerModules.nixvim
+      inputs.noctalia.homeModules.default 
 	  ];
 	  home-manager.users.rhea =  import  ./home.nix;
        }

@@ -46,7 +46,7 @@ nix.package = pkgs.lixPackageSets.stable.lix;
 
   # Enable networking
   networking.networkmanager.enable = true;
-  programs.waybar.enable = true; 
+  
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
@@ -61,7 +61,10 @@ nix.package = pkgs.lixPackageSets.stable.lix;
   };
 
   services.blueman.enable = true;    
+  services.upower.enable = true;
+  xdg.portal.enable = true;
   
+
 
   #rebind caps-lock to esc
   
@@ -152,7 +155,6 @@ nix.package = pkgs.lixPackageSets.stable.lix;
     description = "rhea";
     extraGroups = [ "networkmanager" "wheel" "dialout" ];
     packages = with pkgs; [
-    #  thunderbird
     ];
   };
   
@@ -200,9 +202,11 @@ users.groups.libvirtd.members = ["rhea"];
 virtualisation.libvirtd.enable = true;
 virtualisation.spiceUSBRedirection.enable = true;
 
+
  # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    noctalia-shell
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     alacritty

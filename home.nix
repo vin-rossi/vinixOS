@@ -5,17 +5,23 @@
   home.username="rhea";
   home.homeDirectory = "/home/rhea";
 
+
   home.packages = with pkgs; [
 
   #this is so unorganized but ill atttempt to fix that over time :3
 
+  inputs.nix-alien.packages.${pkgs.system}.default
   #Langs
   go
   jdk
   racket
   ruby
+  rustc
+  cargo
+  qemu
 
 
+  signal-desktop
   proxmark3
 
   kew
@@ -26,7 +32,6 @@
   gparted
   hackrf
   sdrpp
-  neofetch
   nnn
   
   nautilus
@@ -37,6 +42,7 @@
   kdePackages.dolphin 
   nmap
 
+  fastfetch
   hyfetch
   cowsay
   
@@ -50,7 +56,6 @@
   spotify
   vimb
   discord
-  thunderbird
   vlc 
   wget
   darktable
@@ -59,11 +64,9 @@
   gdb
   gcc
   libgcc
-  signal-desktop-bin
   python3
   valgrind
   gnumake
-  jetbrains.idea-community-src
   radeontop
 
   networkmanagerapplet
@@ -80,8 +83,75 @@
 
   brightnessctl
 
-  jetbrains-toolbox
+  emacsPackages.evil
+  swww
+  waypaper
+
 ];
+
+  programs.noctalia-shell= {
+      enable = true;
+      settings = {
+        # configure noctalia here
+        bar = {
+          density = "compact";
+          position = "top";
+          showCapsule = true;
+          widgets = {
+            left = [
+              {
+                id = "ControlCenter";
+                useDistroLogo = true;
+              }
+              {
+                hideUnoccupied = false;
+                id = "Workspace";
+                labelMode = "none";
+              }
+            ];
+            center = [
+            {
+              id = "MediaMini";
+            }
+            ];
+            right = [
+              {
+                id = "Volume";
+              }
+              {
+                id = "Network";
+              }
+              {
+                id = "Bluetooth";
+              }
+              {
+                alwaysShowPercentage = true;
+                id = "Battery";
+                warningThreshold = 30;
+              }
+              {
+                formatHorizontal = "HH:mm";
+                formatVertical = "HH mm";
+                id = "Clock";
+                useMonospacedFont = true;
+                usePrimaryColor = true;
+              }
+            ];
+          };
+        };
+        colorSchemes.predefinedScheme = "Monochrome";
+        general = {
+          radiusRatio = 0.2;
+        };
+        location = {
+          monthBeforeDay = true;
+          name = "Boston, US";
+          useFahrenheit = true;
+        };
+      };
+      # this may also be a string or a path to a JSON file.
+    };
+
 
   programs.eww = {
     enable = true;
@@ -116,10 +186,27 @@
     settings = {
       env = "TERM=xterm-256color";
       background = "000000";
-      background-opacity = "0.5";
+      background-opacity = "0.75";
       gtk-single-instance = "false";
     };
   };
+  programs.emacs = {
+    enable = true;
+    package = pkgs.emacs;
+    extraPackages = epkgs: [
+      epkgs.rustic
+      epkgs.org
+      epkgs.nix-mode
+      epkgs.evil
+      epkgs.nixfmt
+    ];
+    extraConfig = ''
+      (evil-mode 1)
+      (column-number-mode 1)
+      (add-hook 'prog-mode-hook 'display-line-numbers-mode)
+      (setq standard-indent 2)
+      '';
+    };
   programs.nixvim = {
     enable = true;
     defaultEditor = true;
@@ -205,7 +292,7 @@ programs.zsh = {
   history.ignoreAllDups = true;
   oh-my-zsh = {
     enable = true;
-    plugins = ["git" "ruby" "vi-mode" ];
+    plugins = ["git" "ruby" ];
     theme = "bira";
   };
 };
