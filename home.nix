@@ -21,11 +21,11 @@
   qemu
 
 
+  brave
   signal-desktop
   proxmark3
 
   kew
-  zoom
 
   btop
   cmake
@@ -108,6 +108,12 @@
                 id = "Workspace";
                 labelMode = "none";
               }
+              {
+                id = "SystemMonitor";
+                compactMode = false;
+                iconColor = "primary";
+                showNetworkStats = true;
+              }
             ];
             center = [
             {
@@ -125,8 +131,8 @@
                 id = "Bluetooth";
               }
               {
-                alwaysShowPercentage = true;
                 id = "Battery";
+                displayMode = "icon-always";
                 warningThreshold = 30;
               }
               {
@@ -142,6 +148,9 @@
         colorSchemes.predefinedScheme = "Monochrome";
         general = {
           radiusRatio = 0.2;
+        };
+        audio = {
+          volumeOverdrive = true;
         };
         location = {
           monthBeforeDay = true;
