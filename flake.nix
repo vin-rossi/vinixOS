@@ -56,13 +56,13 @@
         ./configuration.nix
         home-manager.nixosModules.home-manager
         nixos-hardware.nixosModules.lenovo-thinkpad-x1-6th-gen
+        ./noctalia.nix
 	{
 	  home-manager.useGlobalPkgs = true;
 	  home-manager.useUserPackages = true;
     home-manager.extraSpecialArgs = { inherit inputs; };
 	  home-manager.sharedModules = [
 	    nixvim.homeManagerModules.nixvim
-      inputs.noctalia.homeModules.default 
 	  ];
 	  home-manager.users.rhea =  import  ./home.nix;
        }
