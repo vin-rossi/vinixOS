@@ -84,84 +84,12 @@
   brightnessctl
 
   emacsPackages.evil
-  swww
+  awww
   waypaper
 
 ];
 
-  programs.noctalia-shell= {
-      enable = true;
-      settings = {
-        # configure noctalia here
-        bar = {
-          density = "compact";
-          position = "top";
-          showCapsule = true;
-          widgets = {
-            left = [
-              {
-                id = "ControlCenter";
-                useDistroLogo = true;
-              }
-              {
-                hideUnoccupied = false;
-                id = "Workspace";
-                labelMode = "none";
-              }
-              {
-                id = "SystemMonitor";
-                compactMode = false;
-                iconColor = "primary";
-                showNetworkStats = true;
-              }
-            ];
-            center = [
-            {
-              id = "MediaMini";
-            }
-            ];
-            right = [
-              {
-                id = "Volume";
-              }
-              {
-                id = "Network";
-              }
-              {
-                id = "Bluetooth";
-              }
-              {
-                id = "Battery";
-                displayMode = "icon-always";
-                warningThreshold = 30;
-              }
-              {
-                formatHorizontal = "HH:mm";
-                formatVertical = "HH mm";
-                id = "Clock";
-                useMonospacedFont = true;
-                usePrimaryColor = true;
-              }
-            ];
-          };
-        };
-        colorSchemes.predefinedScheme = "Monochrome";
-        general = {
-          radiusRatio = 0.2;
-        };
-        audio = {
-          volumeOverdrive = true;
-        };
-        location = {
-          monthBeforeDay = true;
-          name = "Boston, US";
-          useFahrenheit = true;
-        };
-      };
-      # this may also be a string or a path to a JSON file.
-    };
-
-
+ 
   programs.eww = {
     enable = true;
     #configDir = ./vinixOS-dots/eww-widgets;
