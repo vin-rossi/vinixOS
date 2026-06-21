@@ -21,6 +21,7 @@
   qemu
 
 
+  brave
   signal-desktop
   proxmark3
 

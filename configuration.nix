@@ -34,6 +34,8 @@ nix.package = pkgs.lixPackageSets.stable.lix;
   */
 };
 
+boot.kernelPackages = pkgs.linuxPackages_latest;
+
   time.hardwareClockInLocalTime = true;
 
 
@@ -46,14 +48,16 @@ nix.package = pkgs.lixPackageSets.stable.lix;
 
   # Enable networking
   networking.networkmanager.enable = true;
+  networking.networkmanager.wifi.powersave = false;
+
+  boot.extraModprobeConfig = "
+  options mt7921e disable_aspm=Y
+  ";
   
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;
     settings = {
-      General = {
-      	Experimental = true;
-       };
 	Policy = {
 	  AutoEnable = true;
 	};
@@ -169,6 +173,9 @@ nix.package = pkgs.lixPackageSets.stable.lix;
   dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
 }; 
 
+services.power-profiles-daemon.enable = true;
+services.tlp.enable = false;
+
 hardware.graphics= {
   enable = true;
   enable32Bit = true;
@@ -209,7 +216,18 @@ virtualisation.spiceUSBRedirection.enable = true;
     wget
     alacritty
     spice-gtk
+    lact
   ];
+
+  systemd.services.lact = {
+    description = "AMDGPU Control Daemon";
+    after = ["multi-user.target"];
+    wantedBy = ["multi-user.target"];
+    serviceConfig = {
+      ExecStart = "${pkgs.lact}/bin/lact daemon";
+    };
+    enable = true;
+  };
 
 
 
