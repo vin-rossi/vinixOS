@@ -113,22 +113,8 @@ boot.kernelPackages = pkgs.linuxPackages_latest;
   };
 
 
-  services.xserver = {
-    enable = true;
-    displayManager.gdm = {
-      enable = true;
-    };
-  };
-
 
   services.fwupd.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-    options = "altwin:swap_alt_win";
-  };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -150,7 +136,6 @@ boot.kernelPackages = pkgs.linuxPackages_latest;
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.rhea = {
@@ -159,6 +144,14 @@ boot.kernelPackages = pkgs.linuxPackages_latest;
     extraGroups = [ "networkmanager" "wheel" "dialout" ];
     packages = with pkgs; [
     ];
+  };
+
+  services.displayManager.sddm = {
+    enable = true;
+
+    wayland = {
+      enable = true;
+    };
   };
   
   # Install firefox.
